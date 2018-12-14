@@ -29,6 +29,7 @@ export default({
           type="submit"
           value="Add termin"
           onClick={terminHandler}
+          disabled={!termin.match(/^(?!\s*$).+/g)}
         />
       </div>
       <div>
@@ -53,6 +54,7 @@ export default({
           type="submit"
           value="Apply changes"
           onClick={addNewWord}
+          disabled={!(terms.length && description)}
         />
       </div>  
       <div>

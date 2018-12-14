@@ -8,7 +8,8 @@ export default class Home extends Component {
 
     this.state = {
       dictionary: this.props.dictionary,
-      visibleDict: []
+      visibleDict: [],
+      isOnDelete: false,
     }
 
     this.cardChanger = this.props.cardChanger;
@@ -39,7 +40,16 @@ export default class Home extends Component {
       })
     }else this.setState({ visibleDict:dictionary });
 
-    this.inputRef.current.value = '';
+  }
+
+  deleteManager = () => {
+    const { isOnDelete } = this.state;
+    this.setState({ isOnDelete: !isOnDelete }, console.log(this.state.isOnDelete));
+  }
+
+  clearSearch = () => {
+    this.inputRef.current.value='';
+    this.searchOnClick();
   }
 
   componentDidMount() {
@@ -49,7 +59,7 @@ export default class Home extends Component {
   }
 
   render(){
-    const { visibleDict } = this.state;
+    const { visibleDict, isOnDelete } = this.state;
     return(
       <div className="home">
         <div className="search">
@@ -58,13 +68,14 @@ export default class Home extends Component {
             type="text"
             ref={this.inputRef}
             placeholder="Search"
+            onChange={this.searchOnClick}
           />
           <input 
             className="searchButton"
             type="submit"
             ref={this.searchRef}
-            value="Search"
-            onClick={this.searchOnClick}
+            value="Clear"
+            onClick={this.clearSearch}
           />
         </div>
         <div className="dictionary">
@@ -76,6 +87,8 @@ export default class Home extends Component {
                 deleteCard={this.deleteCard}
                 cardChanger={this.cardChanger}
                 id={word.id}
+                isOnDelete={isOnDelete}
+                deleteManager={this.deleteManager}
               />
             ))}
           </ul>  
