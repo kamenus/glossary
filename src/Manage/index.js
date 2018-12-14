@@ -49,13 +49,15 @@ export default({
             onClick={changeCanceler}
           />
         </Link>}
-        <input
-          className="addButton"
-          type="submit"
-          value="Apply changes"
-          onClick={addNewWord}
-          disabled={!(terms.length && description)}
-        />
+        <Link to="/">
+          <input
+            className="addButton"
+            type="submit"
+            value="Apply changes"
+            onClick={addNewWord}
+            disabled={!(terms.length && description)}
+          />
+        </Link>  
       </div>  
       <div>
         <ul>

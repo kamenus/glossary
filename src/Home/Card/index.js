@@ -10,13 +10,14 @@ export default ({
   id,
   deleteManager,
   isOnDelete,
+  idOnDelete
 }) => (
   <div className="card">
     <div className="cardInfo">
       <div className="termins">
         {
           terms.map(term => (
-            <p>{term.title}</p>
+            <p key={term.id}>{term.title}</p>
           ))
         }
       </div>
@@ -34,7 +35,7 @@ export default ({
         </Link><br />
         <span
           className="deleteBtn"
-          onClick={deleteManager}
+          onClick={() => deleteManager(id)}
         >
           Delete
         </span>
@@ -47,7 +48,10 @@ export default ({
               Do you want to delete this card?
             </p>
             <button
-              onClick={() => deleteCard(id)}
+              onClick={() => { 
+                deleteCard(idOnDelete); 
+                deleteManager() 
+              }}
             >
               Yes
             </button>

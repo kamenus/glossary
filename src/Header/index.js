@@ -2,7 +2,7 @@ import React from 'react';
 
 import "./index.css";
 
-export default({}) =>(
+export default() =>(
   <header className="header">
     Glossarium
   </header>  

@@ -10,6 +10,7 @@ export default class Home extends Component {
       dictionary: this.props.dictionary,
       visibleDict: [],
       isOnDelete: false,
+      idOnDelete: null,
     }
 
     this.cardChanger = this.props.cardChanger;
@@ -42,9 +43,11 @@ export default class Home extends Component {
 
   }
 
-  deleteManager = () => {
+  deleteManager = id => {
     const { isOnDelete } = this.state;
-    this.setState({ isOnDelete: !isOnDelete }, console.log(this.state.isOnDelete));
+    this.setState({ isOnDelete: !isOnDelete });
+    (id !=undefined) &&
+      this.setState({ idOnDelete:id })
   }
 
   clearSearch = () => {
@@ -59,7 +62,11 @@ export default class Home extends Component {
   }
 
   render(){
-    const { visibleDict, isOnDelete } = this.state;
+    const { 
+      visibleDict, 
+      isOnDelete,
+      idOnDelete
+    } = this.state;
     return(
       <div className="home">
         <div className="search">
@@ -79,9 +86,11 @@ export default class Home extends Component {
           />
         </div>
         <div className="dictionary">
-          <ul> {visibleDict.map( word => console.log(word) )}
+          <ul> 
             {visibleDict.map(word => (
               <Card 
+                key={word.id}
+                idOnDelete={idOnDelete}
                 description={word.description}
                 terms={word.terms}
                 deleteCard={this.deleteCard}

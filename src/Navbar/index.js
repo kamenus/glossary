@@ -2,7 +2,7 @@ import React from 'react';
 import { Link }from 'react-router-dom';
 import './index.css';
 
-export default({}) => (
+export default() => (
   <ul className="navbar">
     <li className="navbarLink">
       <Link to="/"><p>Home</p></Link>

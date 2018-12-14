@@ -81,7 +81,6 @@ export default class App extends Component {
   cardChanger = id => {
     const { dictionary } = this.state;
     let dictItem = dictionary[id];
-    debugger;
     this.setState({ 
       isOnChange: true,
       terms: dictItem.terms,
@@ -96,7 +95,6 @@ export default class App extends Component {
     let dict = dictionary;
     dict.splice(id, 1);
     dict.forEach( (card, id) => card.id = id );
-    console.log(dict)
     this.setState({ dictionary: dict });
   }
 
