@@ -1,0 +1,18 @@
+.cardInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.termins {
+  margin: 5px 5px 0 5px;
+  width:20%;
+}
+
+.description {
+  width: 50%;
+  word-wrap: break-word;
+}
+
+a {
+  cursor: pointer;
+}

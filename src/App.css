@@ -1,0 +1,10 @@
+.app {
+  padding: 20px 50px 0 50px;
+}
+
+.content {
+  background: #2f2f2f;
+  padding: 15px 20px 15px 20px;
+  height: 100vh;
+  color: #ffffff;
+}
