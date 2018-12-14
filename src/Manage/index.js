@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import './index.css'
 
 export default({
@@ -8,7 +10,9 @@ export default({
   inputHandler,
   terminHandler,
   deleteTermin,
-  addNewWord
+  addNewWord,
+  isOnChange,
+  changeCanceler,
 }) => (
   <div>
     <div className="wordCreator">
@@ -36,6 +40,14 @@ export default({
           onChange={inputHandler('description')}
           value={description}
         />
+        { isOnChange && <Link to="/">
+          <input 
+            className="addButton"
+            type="submit"
+            value="Cancel"
+            onClick={changeCanceler}
+          />
+        </Link>}
         <input
           className="addButton"
           type="submit"

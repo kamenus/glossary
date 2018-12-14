@@ -7,9 +7,10 @@ export default class Home extends Component {
     super(props)
 
     this.state = {
-      dictionary: this.props.dictionary,
+      visibleDict: this.props.dictionary,
     }
 
+    this.cardChanger = this.props.cardChanger;
     this.deleteCard = this.props.deleteCard;
 
     this.searchRef = React.createRef();
@@ -17,18 +18,19 @@ export default class Home extends Component {
   }
 
   searchOnClick = () => {
+    const { visibleDict } = this.state;
     const value = this.inputRef.current.value;
+
 
     this.inputRef.current.value = '';
   }
 
   componentDidMount() {
     this.inputRef.current.focus();
-
   }
 
   render(){
-    const { dictionary } = this.state;
+    const { dictionary, visibleDict } = this.state;
     return(
       <div className="home">
         <div className="search">
@@ -46,12 +48,13 @@ export default class Home extends Component {
           />
         </div>
         <div className="dictionary">
-          <ul>
-            {dictionary.map(word => (
+          <ul> {visibleDict.map( word => console.log(word) )}
+            {visibleDict.map(word => (
               <Card 
                 description={word.description}
                 terms={word.terms}
                 deleteCard={this.deleteCard}
+                cardChanger={this.cardChanger}
                 id={word.id}
               />
             ))}

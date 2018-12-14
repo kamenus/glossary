@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './index.css';
 
 export default ({
   description,
   terms,
   deleteCard,
+  cardChanger,
   id,
 }) => (
   <div className="card">
@@ -20,11 +22,14 @@ export default ({
         <p>{description}</p>
       </div>
       <div>
-        <span
-          className="changeBtn"
-        >
-          Change
-        </span><br />
+        <Link to="/manage">
+          <span
+            className="changeBtn"
+            onClick={() => cardChanger(id)}
+          >
+            Change
+          </span>
+        </Link><br />
         <span
           className="deleteBtn"
           onClick={() => deleteCard(id)}

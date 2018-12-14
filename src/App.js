@@ -17,11 +17,22 @@ export default class App extends Component {
       description: '',
       terms: [],
       termin: '',
+      isOnChange: false,
+      idOnChange: null,
     }
   }
 
   inputHandler = name => e => 
     this.setState({ [name]: e.target.value });
+
+  changeCanceler = () =>
+    this.setState({ 
+      isOnChange: false, 
+      idOnChange: null,
+      terms: [],
+      termin: '',
+      description: '',
+    })
 
   terminHandler = () => {
     const { terms, termin } = this.state;
@@ -46,22 +57,37 @@ export default class App extends Component {
   }
 
   addNewWord = () => {
-    const { dictionary, terms, description } = this.state;
-    
+    const { dictionary, terms, description, isOnChange, idOnChange } = this.state;
+    let newDict;
     let id = 0;
-    (dictionary[dictionary.length - 1]) &&
-      (id = dictionary[dictionary.length - 1].id + 1);
+    if(!isOnChange) {
+      (dictionary[dictionary.length - 1]) &&
+        (id = dictionary[dictionary.length - 1].id + 1);
 
-    let newDict = dictionary.concat({
-      id,
-      description,
-      terms
-    })
-    console.log(newDict);
-    this.setState({ dictionary: newDict , terms: [], description: '', termin: '' });
+      newDict = dictionary.concat({
+        id,
+        description,
+        terms
+      })
+      console.log(newDict);
+    } else {
+      newDict = dictionary;
+      id = idOnChange;
+      newDict[id] = { id, description, terms };
+    }
+    this.setState({ dictionary: newDict , terms: [], description: '', termin: '', isOnChange: false });
   }
 
   cardChanger = id => {
+    const { dictionary } = this.state;
+    let dictItem = dictionary[id];
+    debugger;
+    this.setState({ 
+      isOnChange: true,
+      terms: dictItem.terms,
+      description: dictItem.description,
+      idOnChange: id,
+    });
 
   }
 
@@ -81,11 +107,12 @@ export default class App extends Component {
       terms,
       description,
       termin,
+      isOnChange,
     } = this.state;
     return (
       <div className="app">
         <Header />
-        <Navbar />
+        {!isOnChange && <Navbar />}
         <section className="content">
           <Switch>
             <Route exact path="/" render={ () => (  
@@ -94,6 +121,7 @@ export default class App extends Component {
                 inputHandler={this.inputHandler}
                 searchValue={searchValue}
                 deleteCard={this.deleteCard}
+                cardChanger={this.cardChanger}
               />
             )} />
             <Route path="/manage" render={() => (
@@ -105,6 +133,8 @@ export default class App extends Component {
                 termin={termin}
                 deleteTermin={this.deleteTermin}
                 addNewWord={this.addNewWord}
+                isOnChange={isOnChange}
+                changeCanceler={this.changeCanceler}
               />
             )}/>
           </Switch>
