@@ -10,6 +10,8 @@ export default class Home extends Component {
       dictionary: this.props.dictionary,
     }
 
+    this.deleteCard = this.props.deleteCard;
+
     this.searchRef = React.createRef();
     this.inputRef = React.createRef();
   }
@@ -49,6 +51,8 @@ export default class Home extends Component {
               <Card 
                 description={word.description}
                 terms={word.terms}
+                deleteCard={this.deleteCard}
+                id={word.id}
               />
             ))}
           </ul>  

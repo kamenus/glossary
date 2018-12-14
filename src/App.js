@@ -61,14 +61,17 @@ export default class App extends Component {
     this.setState({ dictionary: newDict , terms: [], description: '', termin: '' });
   }
 
-  // getDictionary = () => {
+  cardChanger = id => {
 
-  //   fetch('http://localhost:8080/api/glossary/groups', {method:'GET'})
-  //     .then( response => response.json)
-  //     .then( result => console.log(result) )
-  // }
+  }
 
-  componentDidMount() {
+  deleteCard = id => {
+    const { dictionary } = this.state;
+    let dict = dictionary;
+    dict.splice(id, 1);
+    dict.forEach( (card, id) => card.id = id );
+    console.log(dict)
+    this.setState({ dictionary: dict });
   }
 
   render() {
@@ -90,6 +93,7 @@ export default class App extends Component {
                 dictionary={dictionary}
                 inputHandler={this.inputHandler}
                 searchValue={searchValue}
+                deleteCard={this.deleteCard}
               />
             )} />
             <Route path="/manage" render={() => (

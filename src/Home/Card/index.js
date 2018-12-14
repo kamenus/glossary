@@ -4,6 +4,8 @@ import './index.css';
 export default ({
   description,
   terms,
+  deleteCard,
+  id,
 }) => (
   <div className="card">
     <div className="cardInfo">
@@ -18,8 +20,17 @@ export default ({
         <p>{description}</p>
       </div>
       <div>
-        <a>Change</a><br />
-        <a>Delete</a>
+        <span
+          className="changeBtn"
+        >
+          Change
+        </span><br />
+        <span
+          className="deleteBtn"
+          onClick={() => deleteCard(id)}
+        >
+          Delete
+        </span>
       </div>
     </div>  
     <hr />
