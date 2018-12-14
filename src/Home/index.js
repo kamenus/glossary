@@ -7,7 +7,8 @@ export default class Home extends Component {
     super(props)
 
     this.state = {
-      visibleDict: this.props.dictionary,
+      dictionary: this.props.dictionary,
+      visibleDict: []
     }
 
     this.cardChanger = this.props.cardChanger;
@@ -18,19 +19,37 @@ export default class Home extends Component {
   }
 
   searchOnClick = () => {
-    const { visibleDict } = this.state;
+    const { dictionary } = this.state;
     const value = this.inputRef.current.value;
-
+    if(value){
+      let visibleDict = []; 
+      dictionary.map((word) => {
+        if(word.description.includes(value)){
+          visibleDict.push(word)
+        }else{
+          let terms = word.terms;
+          for(let term of terms){
+            if(!visibleDict.includes(word)){
+              term.title.includes(value) && 
+                visibleDict.push(word)
+            }    
+          };
+          this.setState({ visibleDict });
+        }
+      })
+    }else this.setState({ visibleDict:dictionary });
 
     this.inputRef.current.value = '';
   }
 
   componentDidMount() {
+    const { dictionary } = this.state;
+    this.setState({ visibleDict: dictionary });
     this.inputRef.current.focus();
   }
 
   render(){
-    const { dictionary, visibleDict } = this.state;
+    const { visibleDict } = this.state;
     return(
       <div className="home">
         <div className="search">
@@ -45,6 +64,7 @@ export default class Home extends Component {
             type="submit"
             ref={this.searchRef}
             value="Search"
+            onClick={this.searchOnClick}
           />
         </div>
         <div className="dictionary">
